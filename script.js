@@ -1,26 +1,120 @@
-// Lista 20 wyzwań z emotikonami dla lepszego UX
 const challenges = [
-    "Zrób 10 pompek i poczuj się silniejszy! 💪",
-    "Napisz komuś miły komentarz pod postem. 😊",
-    "Spędź godzinę bez telefonu. 📵",
-    "Zrób 20 przysiadów. 🏋️",
-    "Napisz listę 3 rzeczy, za które jesteś wdzięczny. 🙏",
-    "Zadzwoń do starego przyjaciela. 📞",
-    "Przeczytaj książkę przez 30 minut. 📖",
-    "Zrób spacer na świeżym powietrzu. 🚶",
-    "Spróbuj nowej receptury na obiad. 🍳",
-    "Poświęć 15 minut na medytację. 🧘",
-    "Zrób coś miłego dla kogoś innego. 🤝",
-    "Posprzątaj jeden kąt w domu. 🧹",
-    "Naucz się jednego nowego słowa. 📚",
-    "Zrób zdjęcie czegoś pięknego. 📸",
-    "Napisz krótką historię. ✍️",
-    "Zjedz zdrowy posiłek. 🥗",
-    "Poćwicz jogę przez 10 minut. 🧘‍♀️",
-    "Zapisuj swoje myśli w dzienniku. 📓",
-    "Posłuchaj nowej piosenki. 🎵",
-    "Pomóż komuś w potrzebie. 🆘"
+  "Zrób 10 pompek 💪",
+  "Napisz miły komentarz 😊",
+  "Spędź godzinę bez telefonu 📵",
+  "Przeczytaj rozdział książki 📖",
+  "Zrób krótką listę rzeczy do zrobienia 📝",
+  "Zrób spacer 10 minut 🚶",
+  "Wypij 2 litry wody 💧",
+  "Posprzątaj biurko 🧹",
+  "Zadzwoń do przyjaciela 📞",
+  "Napisz zadanie w dzienniku 📓",
+  "Poćwicz 5 minut rozciągania 🧘",
+  "Usłysz ulubioną piosenkę 🎵",
+  "Zrób coś dobrego dla kogoś innego 🤝",
+  "Ustaw przypomnienie na relaks 💤",
+  "Zrób zdjęcie czegoś miłego 📸",
+  "Napisz 3 rzeczy, za które jesteś wdzięczny 🙏",
+  "Wypróbuj nowy przepis 🍳",
+  "Przeczytaj artykuł edukacyjny 📚",
+  "Uśmiechnij się do nieznajomego 😄",
+  "Przeznacz 10 min na oddychanie 💨"
 ];
+
+const generateBtn = document.getElementById('generate-btn');
+const completeBtn = document.getElementById('complete-btn');
+const historyBtn = document.getElementById('history-btn');
+const challengeText = document.getElementById('challenge-text');
+const challengeDisplay = document.getElementById('challenge-display');
+const historyList = document.getElementById('history-list');
+const historyDisplay = document.getElementById('history-display');
+const messageDiv = document.getElementById('message');
+
+function todayKey() {
+  return new Date().toDateString();
+}
+
+function loadState() {
+  const storedDate = localStorage.getItem('date');
+  const now = todayKey();
+  if (storedDate !== now) {
+    localStorage.setItem('date', now);
+    localStorage.setItem('challenge', '');
+    localStorage.setItem('done', JSON.stringify([]));
+    return { challenge: '', done: [] };
+  }
+  return {
+    challenge: localStorage.getItem('challenge') || '',
+    done: JSON.parse(localStorage.getItem('done') || '[]')
+  };
+}
+
+function saveState(challenge, done) {
+  localStorage.setItem('date', todayKey());
+  localStorage.setItem('challenge', challenge);
+  localStorage.setItem('done', JSON.stringify(done));
+}
+
+function showMessage(text) {
+  messageDiv.textContent = text;
+  messageDiv.classList.remove('hidden');
+  setTimeout(() => messageDiv.classList.add('hidden'), 2000);
+}
+
+function generateChallenge() {
+  const state = loadState();
+  if (state.challenge) {
+    challengeText.textContent = state.challenge;
+    challengeDisplay.classList.remove('hidden');
+    completeBtn.classList.remove('hidden');
+    return;
+  }
+  const random = challenges[Math.floor(Math.random() * challenges.length)];
+  challengeText.textContent = random;
+  challengeDisplay.classList.remove('hidden');
+  completeBtn.classList.remove('hidden');
+  saveState(random, state.done);
+}
+
+function markCompleted() {
+  const state = loadState();
+  if (!state.challenge) return;
+  if (!state.done.includes(state.challenge)) {
+    state.done.push(state.challenge);
+    saveState(state.challenge, state.done);
+    challengeText.classList.add('completed');
+    showMessage('Gratulacje! 🎉');
+  }
+}
+
+function showHistory() {
+  const state = loadState();
+  historyList.innerHTML = '';
+  if (!state.done.length) {
+    historyList.innerHTML = '<li>Brak ukończonych wyzwań dziś.</li>';
+  } else {
+    state.done.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      historyList.appendChild(li);
+    });
+  }
+  historyDisplay.classList.toggle('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const state = loadState();
+  if (state.challenge) {
+    challengeText.textContent = state.challenge;
+    challengeDisplay.classList.remove('hidden');
+    completeBtn.classList.remove('hidden');
+    if (state.done.includes(state.challenge)) challengeText.classList.add('completed');
+  }
+
+  generateBtn.addEventListener('click', generateChallenge);
+  completeBtn.addEventListener('click', markCompleted);
+  historyBtn.addEventListener('click', showHistory);
+});
 
 // Pobranie referencji do elementów DOM
 const generateBtn = document.getElementById('generate-btn');
@@ -83,15 +177,20 @@ function animateChallengeDraw(finalChallenge) {
     }, 100);
 }
 
+// Obsługa stanu wyświetlanych treści (human-friendly UX)
+function displayCurrentChallenge(challengeTextValue) {
+    challengeText.textContent = challengeTextValue;
+    challengeDisplay.classList.remove('hidden');
+    completeBtn.classList.remove('hidden');
+}
+
 // Funkcja generująca nowe wyzwanie dnia
 function generateChallenge() {
     const { todaysChallenge } = loadFromStorage();
 
     // Jeśli już wylosowano dziś, pokaż istniejące
     if (todaysChallenge) {
-        challengeText.textContent = todaysChallenge;
-        challengeDisplay.classList.remove('hidden');
-        completeBtn.classList.remove('hidden');
+        displayCurrentChallenge(todaysChallenge);
         return;
     }
 
@@ -144,9 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sprawdź czy już wylosowano dziś i przywróć stan
     const { todaysChallenge } = loadFromStorage();
     if (todaysChallenge) {
-        challengeText.textContent = todaysChallenge;
-        challengeDisplay.classList.remove('hidden');
-        completeBtn.classList.remove('hidden');
+        displayCurrentChallenge(todaysChallenge);
         // Sprawdź czy ukończone
         const { completedChallenges } = loadFromStorage();
         if (completedChallenges.includes(todaysChallenge)) {

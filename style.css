@@ -41,14 +41,22 @@ header h1 {
 }
 
 header p {
-    font-size: 1.2rem;
-    color: #718096;
+    font-size: 1.1rem;
+    color: #5c6b82;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.lead {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #4a5568;
 }
 
 main {
     flex: 1;
-    padding: 2rem;
-    max-width: 800px;
+    padding: 2.2rem;
+    max-width: 850px;
     margin: 0 auto;
     width: 100%;
 }
