@@ -1,17 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Generator Codziennych Wyzwań</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <section>
-            <section>
-                TEST
-            </section>
-        </section>
+        <h1>Generator Codziennych Wyzwań</h1>
+        <p>Odkryj nowe wyzwania każdego dnia! 🎯</p>
     </header>
+    <main>
+        <section id="challenge-section">
+            <button id="generate-btn" class="btn">Wylosuj wyzwanie!</button>
+            <div id="challenge-display" class="hidden">
+                <p id="challenge-text"></p>
+                <button id="complete-btn" class="btn complete-btn">Ukończone! ✅</button>
+            </div>
+            <button id="history-btn" class="btn history-btn">Pokaż historię</button>
+            <div id="history-display" class="hidden">
+                <h3>Historia wykonanych wyzwań dziś:</h3>
+                <ul id="history-list"></ul>
+            </div>
+        </section>
+        <section id="info-section">
+            <h3>O aplikacji</h3>
+            <p>Codzienne wyzwania pomagają w rozwoju osobistym, poprawiają zdrowie i dodają życiu trochę zabawy. Każde wyzwanie zostało zaprojektowane tak, aby było osiągalne w ciągu dnia i przynosiło pozytywne efekty.</p>
+            <p><strong>Jak korzystać:</strong> Wylosuj wyzwanie, wykonaj je i zaznacz jako ukończone. Historia pozwala śledzić postęp w ciągu dnia.</p>
+        </section>
+        <div id="message" class="message hidden"></div>
+    </main>
+    <footer>
+        <p>&copy; 2026 Generator Codziennych Wyzwań</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
