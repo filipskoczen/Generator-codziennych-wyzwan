@@ -160,22 +160,6 @@ localStorage.getItem('completed')
 - Jeśli było już wylosowane, wyświetli to samo wyzwanie
 - Wskaźnik "ukończone" jest przywracany jeśli był już zaznaczony
 
-## 🎯 Wymagania Spełnione
-
-✅ Struktura plików (HTML, CSS, JS)
-✅ Losowanie z bazy 20 wyzwań  
-✅ Animacja losowania
-✅ Oznaczanie jako wykonane (zielone podkreślenie)
-✅ Historia wykonanych wyzwań
-✅ Reset danych po północy (zmiana daty)
-✅ Responsywny design (mobile, tablet, desktop)
-✅ Nowoczesne animacje CSS
-✅ Ikony i emotikony
-✅ Blokada ponownego losowania tego samego dnia
-✅ Czysty kod bez frameworków
-✅ Komentarze w kodzie
-✅ LocalStorage dla przechowywania danych
-
 ## 🌐 Kompatybilność Przeglądarek
 
 - ✅ Chrome/Edge (najnowsze)
@@ -190,20 +174,3 @@ localStorage.getItem('completed')
 - **Tablet** (768px - 1199px) - dostosowana siatka
 - **Mobile** (< 768px) - jednolumnowy layout
 - **Mały telefon** (< 480px) - zminifikowane UI, przycisk w pełnej szerokości
-
-## 💡 Wskazówki
-
-Aby dodatkowo dostosować aplikację:
-
-1. **Zmienić wyzwania**: Edytuj tablicę `challenges` w `script.js`
-2. **Zmienić kolory**: Modyfikuj zmienne CSS w `:root` w `style.css`
-3. **Zmienić tytuł**: Edytuj tekst w `<h1>` w `index.html`
-4. **Dodać nową sekację**: Dodaj HTML i style do odpowiednich plików
-
-## 📄 Licencja
-
-Ten projekt jest darmowy do użytku osobistego i edukacyjnego.
-
----
-
-**Stwórz nawyk, zmień swoją przyszłość!** ⭐
