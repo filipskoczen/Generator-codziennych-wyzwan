@@ -8,33 +8,87 @@
 </head>
 <body>
     <header>
-        <h1>Generator Codziennych Wyzwań</h1>
-        <p>Zrób coś dobrego dla siebie w każdym dniu. Mały krok, duża zmiana. 🌱</p>
+        <div class="header-content">
+            <h1>⭐ Generator Codziennych Wyzwań</h1>
+            <p class="subtitle">Zrób coś dla siebie - każdy dzień to nowa szansa</p>
+        </div>
     </header>
-    <main>
-        <section id="challenge-section">
-            <p class="lead">Zacznij od kliknięcia przycisku, a system podpowie Ci jedno proste zadanie na dziś.</p>
-            <button id="generate-btn" class="btn">Wylosuj wyzwanie!</button>
-            <div id="challenge-display" class="hidden" aria-live="polite">
-                <p id="challenge-text"></p>
-                <button id="complete-btn" class="btn complete-btn">Ukończone! ✅</button>
+
+    <main class="container">
+        <section class="challenge-container">
+            <div class="intro-text">
+                <p>Kliknij przycisk poniżej, aby wylosować dzisiejsze wyzwanie. Wykonaj je i zaznacz jako ukończone!</p>
             </div>
-            <button id="history-btn" class="btn history-btn">Pokaż historię</button>
-            <div id="history-display" class="hidden">
-                <h3>Co już udało Ci się zrobić dzisiaj?</h3>
-                <ul id="history-list"></ul>
+
+            <button id="generateBtn" class="btn btn-primary">🎲 Wylosuj wyzwanie!</button>
+            
+            <div id="timerBox" class="timer-box">
+                <span>⏰ Następne losowanie za:</span>
+                <span id="countdown" class="countdown-text">-</span>
+            </div>
+
+            <div id="challengeDisplay" class="challenge-box hidden">
+                <p id="challengeText" class="challenge-text"></p>
+                <div class="button-group">
+                    <button id="completeBtn" class="btn btn-success">✅ Ukończone!</button>
+                    <button id="shareBtn" class="btn btn-secondary">📤 Podziel się</button>
+                </div>
+            </div>
+
+            <button id="historyBtn" class="btn btn-info">📋 Pokaż historię dzisiaj</button>
+
+            <div id="historyDisplay" class="history-box hidden">
+                <h3>Twoje osiągnięcia dzisiaj 🏆</h3>
+                <ul id="historyList" class="history-list">
+                    <li class="empty-state">Brak jeszcze wykonanych wyzwań...</li>
+                </ul>
             </div>
         </section>
-        <section id="info-section">
-            <h3>O co chodzi?</h3>
-            <p>To nie jest wymyślony algorytm, tylko prosty, osobisty kompan. Codziennie możesz wybrać jedno zadanie, które pomoże Ci zacząć dzień lepiej.</p>
-            <p><strong>Mała wskazówka:</strong> wykonuj zadania w dowolnej kolejności, według nastroju i czasu. Najważniejsze, by zacząć.</p>
+
+        <section class="info-section">
+            <h2>Jak to działa?</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="info-icon">🎯</span>
+                    <h3>Losuj</h3>
+                    <p>Każde kliknięcie to nowe wyzwanie czekające na wykonanie</p>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">✔️</span>
+                    <h3>Wykonaj</h3>
+                    <p>Zrób to, co sugeruje Ci wyzwanie, w swoim tempie</p>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">🎉</span>
+                    <h3>Świętuj</h3>
+                    <p>Ukończ wyzwanie i zobacz swoją historię osiągnięć</p>
+                </div>
+            </div>
         </section>
-        <div id="message" class="message hidden"></div>
+
+        <section class="stats-section">
+            <h3>Twoje statystyki</h3>
+            <div class="stats">
+                <div class="stat-box">
+                    <span id="todayCount" class="stat-number">0</span>
+                    <span class="stat-label">wyzwań dzisiaj</span>
+                </div>
+                <div class="stat-box">
+                    <span id="streakCount" class="stat-number">0</span>
+                    <span class="stat-label">dni z rzędu</span>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <div id="messageBox" class="message-box hidden">
+        <span id="messageText"></span>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Generator Codziennych Wyzwań</p>
+        <p>&copy; 2026 Generator Codziennych Wyzwań | Stwórz nawyk, zmień swoją przyszłość</p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,258 +1,251 @@
+// ===== BAZA WYZWAŃ =====
 const challenges = [
-  "Zrób 10 pompek 💪",
-  "Napisz miły komentarz 😊",
-  "Spędź godzinę bez telefonu 📵",
-  "Przeczytaj rozdział książki 📖",
-  "Zrób krótką listę rzeczy do zrobienia 📝",
-  "Zrób spacer 10 minut 🚶",
-  "Wypij 2 litry wody 💧",
-  "Posprzątaj biurko 🧹",
-  "Zadzwoń do przyjaciela 📞",
-  "Napisz zadanie w dzienniku 📓",
-  "Poćwicz 5 minut rozciągania 🧘",
-  "Usłysz ulubioną piosenkę 🎵",
-  "Zrób coś dobrego dla kogoś innego 🤝",
-  "Ustaw przypomnienie na relaks 💤",
-  "Zrób zdjęcie czegoś miłego 📸",
-  "Napisz 3 rzeczy, za które jesteś wdzięczny 🙏",
-  "Wypróbuj nowy przepis 🍳",
-  "Przeczytaj artykuł edukacyjny 📚",
-  "Uśmiechnij się do nieznajomego 😄",
-  "Przeznacz 10 min na oddychanie 💨"
+    "🏃 Zrób 10 pompek",
+    "💪 Wykonaj 20 przysiadów",
+    "😊 Napisz komuś miły komentarz",
+    "📵 Spędź godzinę bez telefonu",
+    "📖 Przeczytaj rozdział książki",
+    "🚶 Zrób spacer 20 minut",
+    "💧 Wypij 2 litry wody dzisiaj",
+    "🧘 Poćwicz medytację 10 minut",
+    "🧹 Posprzątaj swoje biurko",
+    "📞 Zadzwoń do przyjaciela",
+    "📝 Napisz 3 rzeczy do zrobienia",
+    "🎵 Posłuchaj ulubionej piosenki",
+    "📚 Naucz się nowego słowa",
+    "🤝 Zrób coś dobrego dla kogoś",
+    "📸 Zrób zdjęcie czegoś pięknego",
+    "🥗 Zjedz zdrowy posiłek",
+    "✍️ Napisz w dzienniku 5 minut",
+    "🎨 Narysuj lub pomaluj coś",
+    "💝 Daj komuś komplement",
+    "🧘‍♀️ Zrób 5 minut rozciągania"
 ];
 
-const generateBtn = document.getElementById('generate-btn');
-const completeBtn = document.getElementById('complete-btn');
-const historyBtn = document.getElementById('history-btn');
-const challengeText = document.getElementById('challenge-text');
-const challengeDisplay = document.getElementById('challenge-display');
-const historyList = document.getElementById('history-list');
-const historyDisplay = document.getElementById('history-display');
-const messageDiv = document.getElementById('message');
+// ===== ELEMENTY DOM =====
+const generateBtn = document.getElementById('generateBtn');
+const completeBtn = document.getElementById('completeBtn');
+const shareBtn = document.getElementById('shareBtn');
+const historyBtn = document.getElementById('historyBtn');
+const challengeDisplay = document.getElementById('challengeDisplay');
+const challengeText = document.getElementById('challengeText');
+const historyDisplay = document.getElementById('historyDisplay');
+const historyList = document.getElementById('historyList');
+const messageBox = document.getElementById('messageBox');
+const messageText = document.getElementById('messageText');
+const todayCountEl = document.getElementById('todayCount');
+const streakCountEl = document.getElementById('streakCount');
+const countdownEl = document.getElementById('countdown');
 
-function todayKey() {
-  return new Date().toDateString();
-}
-
-function loadState() {
-  const storedDate = localStorage.getItem('date');
-  const now = todayKey();
-  if (storedDate !== now) {
-    localStorage.setItem('date', now);
-    localStorage.setItem('challenge', '');
-    localStorage.setItem('done', JSON.stringify([]));
-    return { challenge: '', done: [] };
-  }
-  return {
-    challenge: localStorage.getItem('challenge') || '',
-    done: JSON.parse(localStorage.getItem('done') || '[]')
-  };
-}
-
-function saveState(challenge, done) {
-  localStorage.setItem('date', todayKey());
-  localStorage.setItem('challenge', challenge);
-  localStorage.setItem('done', JSON.stringify(done));
-}
-
-function showMessage(text) {
-  messageDiv.textContent = text;
-  messageDiv.classList.remove('hidden');
-  setTimeout(() => messageDiv.classList.add('hidden'), 2000);
-}
-
-function generateChallenge() {
-  const state = loadState();
-  if (state.challenge) {
-    challengeText.textContent = state.challenge;
-    challengeDisplay.classList.remove('hidden');
-    completeBtn.classList.remove('hidden');
-    return;
-  }
-  const random = challenges[Math.floor(Math.random() * challenges.length)];
-  challengeText.textContent = random;
-  challengeDisplay.classList.remove('hidden');
-  completeBtn.classList.remove('hidden');
-  saveState(random, state.done);
-}
-
-function markCompleted() {
-  const state = loadState();
-  if (!state.challenge) return;
-  if (!state.done.includes(state.challenge)) {
-    state.done.push(state.challenge);
-    saveState(state.challenge, state.done);
-    challengeText.classList.add('completed');
-    showMessage('Gratulacje! 🎉');
-  }
-}
-
-function showHistory() {
-  const state = loadState();
-  historyList.innerHTML = '';
-  if (!state.done.length) {
-    historyList.innerHTML = '<li>Brak ukończonych wyzwań dziś.</li>';
-  } else {
-    state.done.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      historyList.appendChild(li);
-    });
-  }
-  historyDisplay.classList.toggle('hidden');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const state = loadState();
-  if (state.challenge) {
-    challengeText.textContent = state.challenge;
-    challengeDisplay.classList.remove('hidden');
-    completeBtn.classList.remove('hidden');
-    if (state.done.includes(state.challenge)) challengeText.classList.add('completed');
-  }
-
-  generateBtn.addEventListener('click', generateChallenge);
-  completeBtn.addEventListener('click', markCompleted);
-  historyBtn.addEventListener('click', showHistory);
-});
-
-// Pobranie referencji do elementów DOM
-const generateBtn = document.getElementById('generate-btn');
-const challengeDisplay = document.getElementById('challenge-display');
-const challengeText = document.getElementById('challenge-text');
-const completeBtn = document.getElementById('complete-btn');
-const historyBtn = document.getElementById('history-btn');
-const historyDisplay = document.getElementById('history-display');
-const historyList = document.getElementById('history-list');
-const messageDiv = document.getElementById('message');
-
-// Funkcja zwracająca dzisiejszą datę jako string
-function getTodayString() {
+// ===== FUNKCJE POMOCNICZE =====
+function getTodayKey() {
     return new Date().toDateString();
 }
 
-// Funkcja ładująca dane z LocalStorage i resetująca jeśli nowa data
-function loadFromStorage() {
-    const today = getTodayString();
-    const lastDrawDate = localStorage.getItem('lastDrawDate');
-    const todaysChallenge = localStorage.getItem('todaysChallenge');
-    const completedChallenges = JSON.parse(localStorage.getItem('completedChallenges') || '[]');
-
-    // Reset danych jeśli minęła północ
-    if (lastDrawDate !== today) {
-        localStorage.removeItem('todaysChallenge');
-        localStorage.setItem('completedChallenges', JSON.stringify([]));
-        localStorage.setItem('lastDrawDate', today);
-        return { todaysChallenge: null, completedChallenges: [] };
+function getStorageData() {
+    const today = getTodayKey();
+    const lastDate = localStorage.getItem('lastDate');
+    
+    // Reset jeśli nowy dzień
+    if (lastDate !== today) {
+        localStorage.setItem('lastDate', today);
+        localStorage.setItem('challenge', '');
+        localStorage.setItem('completed', JSON.stringify([]));
     }
-
-    return { todaysChallenge, completedChallenges };
+    
+    return {
+        challenge: localStorage.getItem('challenge') || '',
+        completed: JSON.parse(localStorage.getItem('completed') || '[]')
+    };
 }
 
-// Funkcja zapisująca dane do LocalStorage
-function saveToStorage(key, value) {
-    localStorage.setItem(key, value);
+function saveChallenge(challenge) {
+    localStorage.setItem('challenge', challenge);
+    localStorage.setItem('lastDate', getTodayKey());
 }
 
-// Funkcja wyświetlająca komunikat użytkownikowi
+function saveCompleted(completed) {
+    localStorage.setItem('completed', JSON.stringify(completed));
+}
+
 function showMessage(text) {
-    messageDiv.textContent = text;
-    messageDiv.classList.remove('hidden');
+    messageText.textContent = text;
+    messageBox.classList.remove('hidden');
     setTimeout(() => {
-        messageDiv.classList.add('hidden');
+        messageBox.classList.add('hidden');
     }, 3000);
 }
 
-// Funkcja animująca losowanie wyzwania (szybkie zmiany przed ostatecznym)
-function animateChallengeDraw(finalChallenge) {
-    let counter = 0;
+function updateStats() {
+    const data = getStorageData();
+    todayCountEl.textContent = data.completed.length;
+    
+    // Prosty streak - jeśli są wyzwania dzisiaj, streak = 1
+    streakCountEl.textContent = data.completed.length > 0 ? '1' : '0';
+}
+
+function getTimeUntilMidnight() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    
+    const diff = tomorrow - now;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    return { hours, minutes, seconds };
+}
+
+function updateCountdown() {
+    const time = getTimeUntilMidnight();
+    const timeStr = `${String(time.hours).padStart(2, '0')}:${String(time.minutes).padStart(2, '0')}:${String(time.seconds).padStart(2, '0')}`;
+    countdownEl.textContent = timeStr;
+}
+
+function animateChallenge(finalChallenge) {
+    let count = 0;
     const interval = setInterval(() => {
-        const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-        challengeText.textContent = randomChallenge;
-        counter++;
-        if (counter >= 10) { // Po 10 zmianach zatrzymaj animację
+        const random = challenges[Math.floor(Math.random() * challenges.length)];
+        challengeText.textContent = random;
+        count++;
+        if (count >= 8) {
             clearInterval(interval);
             challengeText.textContent = finalChallenge;
         }
     }, 100);
 }
 
-// Obsługa stanu wyświetlanych treści (human-friendly UX)
-function displayCurrentChallenge(challengeTextValue) {
-    challengeText.textContent = challengeTextValue;
-    challengeDisplay.classList.remove('hidden');
-    completeBtn.classList.remove('hidden');
-}
-
-// Funkcja generująca nowe wyzwanie dnia
+// ===== GŁÓWNE FUNKCJE =====
 function generateChallenge() {
-    const { todaysChallenge } = loadFromStorage();
-
+    let data = getStorageData();
+    
     // Jeśli już wylosowano dziś, pokaż istniejące
-    if (todaysChallenge) {
-        displayCurrentChallenge(todaysChallenge);
+    if (data.challenge) {
+        challengeText.textContent = data.challenge;
+        challengeDisplay.classList.remove('hidden');
+        completeBtn.classList.remove('hidden');
+        shareBtn.classList.remove('hidden');
+        
+        // Jeśli już ukończone, pokaż to
+        if (data.completed.includes(data.challenge)) {
+            challengeText.classList.add('completed');
+        } else {
+            challengeText.classList.remove('completed');
+        }
         return;
     }
-
-    // Rozpocznij animację losowania
+    
+    // Wylosuj nowe
+    const random = challenges[Math.floor(Math.random() * challenges.length)];
+    
     challengeDisplay.classList.remove('hidden');
-    const finalChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-    animateChallengeDraw(finalChallenge);
-
-    // Zapisz wyzwanie po animacji
+    completeBtn.classList.remove('hidden');
+    shareBtn.classList.remove('hidden');
+    challengeText.classList.remove('completed');
+    
+    animateChallenge(random);
+    
     setTimeout(() => {
-        saveToStorage('todaysChallenge', finalChallenge);
-        completeBtn.classList.remove('hidden');
-    }, 1100); // Czas animacji + bufor
+        saveChallenge(random);
+    }, 900);
 }
 
-// Funkcja oznaczająca wyzwanie jako ukończone
-function markCompleted() {
-    const { todaysChallenge, completedChallenges } = loadFromStorage();
-
-    if (!todaysChallenge) return;
-
-    // Dodaj do ukończonych jeśli jeszcze nie jest
-    if (!completedChallenges.includes(todaysChallenge)) {
-        completedChallenges.push(todaysChallenge);
-        saveToStorage('completedChallenges', JSON.stringify(completedChallenges));
-        challengeText.classList.add('completed');
-        showMessage('Gratulacje! Wyzwanie wykonane 🎉');
+function completeChallenge() {
+    let data = getStorageData();
+    
+    if (!data.challenge) return;
+    
+    if (data.completed.includes(data.challenge)) {
+        showMessage('To wyzwanie już zostało ukończone dzisiaj! 🎉');
+        return;
     }
+    
+    data.completed.push(data.challenge);
+    saveCompleted(data.completed);
+    
+    challengeText.classList.add('completed');
+    showMessage('Gratulacje! 🎉 Wyzwanie wykonane! To był dobry dzień.');
+    
+    updateStats();
 }
 
-// Funkcja wyświetlająca historię ukończonych wyzwań
-function showHistory() {
-    const { completedChallenges } = loadFromStorage();
-
+function toggleHistory() {
+    const data = getStorageData();
+    
     historyList.innerHTML = '';
-    if (completedChallenges.length === 0) {
-        historyList.innerHTML = '<li>Brak ukończonych wyzwań dziś.</li>';
+    
+    if (data.completed.length === 0) {
+        historyList.innerHTML = '<li class="empty-state">Brak jeszcze wykonanych wyzwań. Zacznij od kliknięcia "Wylosuj wyzwanie!"</li>';
     } else {
-        completedChallenges.forEach(challenge => {
+        data.completed.forEach((challenge, index) => {
             const li = document.createElement('li');
-            li.textContent = challenge;
+            li.textContent = `${index + 1}. ${challenge}`;
             historyList.appendChild(li);
         });
     }
+    
     historyDisplay.classList.toggle('hidden');
 }
 
-// Inicjalizacja po załadowaniu DOM
+function shareChallenge() {
+    const data = getStorageData();
+    
+    if (!data.challenge) {
+        showMessage('Wylosuj wyzwanie, aby je udostępnić!');
+        return;
+    }
+    
+    const text = `Spróbuję dzisiaj tego wyzwania: "${data.challenge}" 💪 Dołącz do mnie! #GeneratorWyzwań`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Wyzwanie dnia',
+            text: text
+        }).catch(err => console.log('Błąd podczas udostępniania:', err));
+    } else {
+        // Fallback - kopiuj do schowka
+        navigator.clipboard.writeText(text)
+            .then(() => showMessage('Wyzwanie skopiowane do schowka! 📋'))
+            .catch(() => showMessage('Nie można skopiować do schowka'));
+    }
+}
+
+// ===== INICJALIZACJA =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Sprawdź czy już wylosowano dziś i przywróć stan
-    const { todaysChallenge } = loadFromStorage();
-    if (todaysChallenge) {
-        displayCurrentChallenge(todaysChallenge);
-        // Sprawdź czy ukończone
-        const { completedChallenges } = loadFromStorage();
-        if (completedChallenges.includes(todaysChallenge)) {
+    // Przywróć stan z poprzedniego sesji
+    const data = getStorageData();
+    
+    if (data.challenge) {
+        challengeText.textContent = data.challenge;
+        challengeDisplay.classList.remove('hidden');
+        completeBtn.classList.remove('hidden');
+        shareBtn.classList.remove('hidden');
+        
+        if (data.completed.includes(data.challenge)) {
             challengeText.classList.add('completed');
         }
     }
-
-    // Dodanie event listenerów
+    
+    updateStats();
+    updateCountdown();
+    
+    // Aktualizuj licznik co sekundę
+    setInterval(updateCountdown, 1000);
+    
+    // Event listenery
     generateBtn.addEventListener('click', generateChallenge);
-    completeBtn.addEventListener('click', markCompleted);
-    historyBtn.addEventListener('click', showHistory);
+    completeBtn.addEventListener('click', completeChallenge);
+    shareBtn.addEventListener('click', shareChallenge);
+    historyBtn.addEventListener('click', toggleHistory);
+    
+    // Obsługa klawisza Enter
+    document.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !challengeDisplay.classList.contains('hidden')) {
+            if (e.target.tagName !== 'BUTTON') {
+                completeChallenge();
+            }
+        }
+    });
 });
