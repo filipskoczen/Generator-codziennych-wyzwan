@@ -5,10 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generator Codziennych Wyzwań</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2310b981;stop-opacity:1' /><stop offset='100%' style='stop-color:%23047857;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23grad)'/><path d='M50 25 L60 45 L80 50 L65 62 L70 82 L50 70 L30 82 L35 62 L20 50 L40 45 Z' fill='white'/></svg>" type="image/svg+xml">
 </head>
 <body>
     <header>
         <div class="header-content">
+            <div class="header-logo">
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' class="logo-svg">
+                    <defs>
+                        <linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'>
+                            <stop offset='0%' style='stop-color:%2310b981;stop-opacity:1' />
+                            <stop offset='100%' style='stop-color:%23047857;stop-opacity:1' />
+                        </linearGradient>
+                    </defs>
+                    <circle cx='50' cy='50' r='45' fill='url(%23grad)'/>
+                    <path d='M50 25 L60 45 L80 50 L65 62 L70 82 L50 70 L30 82 L35 62 L20 50 L40 45 Z' fill='white'/>
+                </svg>
+            </div>
             <h1>⭐ Generator Codziennych Wyzwań</h1>
             <p class="subtitle">Zrób coś dla siebie - każdy dzień to nowa szansa</p>
         </div>
@@ -21,17 +34,13 @@
             </div>
 
             <button id="generateBtn" class="btn btn-primary">🎲 Wylosuj wyzwanie!</button>
-            
-            <div id="timerBox" class="timer-box">
-                <span>⏰ Następne losowanie za:</span>
-                <span id="countdown" class="countdown-text">-</span>
-            </div>
 
             <div id="challengeDisplay" class="challenge-box hidden">
                 <p id="challengeText" class="challenge-text"></p>
                 <div class="button-group">
                     <button id="completeBtn" class="btn btn-success">✅ Ukończone!</button>
                     <button id="shareBtn" class="btn btn-secondary">📤 Podziel się</button>
+                    <button id="rerollBtn" class="btn btn-info hidden">🔄 Wylosuj inne</button>
                 </div>
             </div>
 
@@ -42,6 +51,7 @@
                 <ul id="historyList" class="history-list">
                     <li class="empty-state">Brak jeszcze wykonanych wyzwań...</li>
                 </ul>
+                <button id="clearHistoryBtn" class="btn btn-danger" style="margin-top: 1rem; width: 100%;">🗑️ Wyczyść historię</button>
             </div>
         </section>
 
@@ -86,7 +96,89 @@
     </div>
 
     <footer>
-        <p>Generator Codziennych Wyzwań | Stwórz nawyk, zmień swoją przyszłość</p>
+        <div class="footer-content">
+            <div class="footer-section footer-main">
+                <div class="footer-logo">
+                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' class="footer-logo-svg">
+                        <defs>
+                            <linearGradient id='grad2' x1='0%' y1='0%' x2='100%' y2='100%'>
+                                <stop offset='0%' style='stop-color:%23ffffff;stop-opacity:1' />
+                                <stop offset='100%' style='stop-color:%23f0fdf4;stop-opacity:1' />
+                            </linearGradient>
+                        </defs>
+                        <circle cx='50' cy='50' r='45' fill='url(%23grad2)' stroke='white' stroke-width='2'/>
+                        <path d='M50 25 L60 45 L80 50 L65 62 L70 82 L50 70 L30 82 L35 62 L20 50 L40 45 Z' fill='%2310b981'/>
+                    </svg>
+                </div>
+                <div class="footer-info">
+                    <h4>Generator Codziennych Wyzwań</h4>
+                    <p>Buduj nawyki, zmień swoją przyszłość, jeden dzień za razem.</p>
+                    <div class="footer-social">
+                        <a href="https://facebook.com" target="_blank" title="Facebook" class="social-link">f</a>
+                        <a href="https://twitter.com" target="_blank" title="Twitter" class="social-link">𝕏</a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram" class="social-link">📷</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section footer-nav">
+                <h5>🔗 Nawigacja</h5>
+                <ul>
+                    <li><a href="#features">Funkcje</a></li>
+                    <li><a href="#about">O nas</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-feature">
+                <h5>✨ Cechy</h5>
+                <ul>
+                    <li><a href="#random">Losowe wyzwania</a></li>
+                    <li><a href="#tracking">Śledzenie postępów</a></li>
+                    <li><a href="#privacy">Prywatne dane</a></li>
+                    <li><a href="#offline">Tryb offline</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-help">
+                <h5>❓ Pomoc</h5>
+                <ul>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#guide">Przewodnik</a></li>
+                    <li><a href="#support">Wsparcie</a></li>
+                    <li><a href="#feedback">Opinia</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-legal">
+                <h5>⚖️ Prawne</h5>
+                <ul>
+                    <li><a href="#privacy-policy">Polityka prywatności</a></li>
+                    <li><a href="#terms">Warunki użytkowania</a></li>
+                    <li><a href="#cookies">Cookies</a></li>
+                    <li><a href="#license">Licencja</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-newsletter">
+            <div class="newsletter-content">
+                <h4>📧 Subskrybuj wyzwania</h4>
+                <p>Otrzymuj codzienne wyzwania na swoją skrzynkę!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Twój email" required>
+                    <button type="submit" class="btn btn-newsletter">Subskrybuj</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2026 Generator Codziennych Wyzwań | <a href="#terms">Warunki</a> | <a href="#privacy">Prywatność</a></p>
+                <p>Stwórz nawyk, zmień swoją przyszłość • Wersja 1.0</p>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
