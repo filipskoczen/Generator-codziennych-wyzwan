@@ -148,18 +148,6 @@ localStorage.getItem('completed')
 
 **Reset danych**: Wpisanie `localStorage.clear()` w konsoli wyczyści wszystkie dane aplikacji.
 
-## ⚙️ Automatyzm
-
-### Reset o Północy
-- Aplikacja automatycznie researchuje datę przy każdym załadowaniu
-- Jeśli data się zmieniła od ostatniej sesji, wszystkie dane są resetowane
-- Historia i bieżące wyzwanie są usuwane, ale statystyki mogą być czytane z historii przeglądania
-
-### Przywrócenie Sesji
-- Przy załadowaniu strony aplikacja odczytuje poprzednie wyzwanie
-- Jeśli było już wylosowane, wyświetli to samo wyzwanie
-- Wskaźnik "ukończone" jest przywracany jeśli był już zaznaczony
-
 ## 🌐 Kompatybilność Przeglądarek
 
 - ✅ Chrome/Edge (najnowsze)
