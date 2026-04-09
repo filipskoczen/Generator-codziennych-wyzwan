@@ -1,4 +1,3 @@
-// ===== BAZA WYZWAŃ =====
 const challenges = [
     "🏃 Zrób 10 pompek",
     "💪 Wykonaj 20 przysiadów",
@@ -22,7 +21,6 @@ const challenges = [
     "🧘‍♀️ Zrób 5 minut rozciągania"
 ];
 
-// ===== ELEMENTY DOM =====
 const generateBtn = document.getElementById('generateBtn');
 const completeBtn = document.getElementById('completeBtn');
 const shareBtn = document.getElementById('shareBtn');
@@ -39,7 +37,6 @@ const todayCountEl = document.getElementById('todayCount');
 const streakCountEl = document.getElementById('streakCount');
 const countdownEl = document.getElementById('countdown');
 
-// ===== FUNKCJE POMOCNICZE =====
 function getTodayKey() {
     return new Date().toDateString();
 }
@@ -55,8 +52,7 @@ function getCurrentTime() {
 function getStorageData() {
     const today = getTodayKey();
     const lastDate = localStorage.getItem('lastDate');
-    
-    // Reset jeśli nowy dzień
+
     if (lastDate !== today) {
         localStorage.setItem('lastDate', today);
         localStorage.setItem('challenge', '');
@@ -90,7 +86,6 @@ function updateStats() {
     const data = getStorageData();
     todayCountEl.textContent = data.completed.length;
     
-    // Prosty streak - jeśli są wyzwania dzisiaj, streak = 1
     streakCountEl.textContent = data.completed.length > 0 ? '1' : '0';
 }
 
@@ -107,18 +102,15 @@ function animateChallenge(finalChallenge) {
     }, 100);
 }
 
-// ===== GŁÓWNE FUNKCJE =====
 function generateChallenge() {
     let data = getStorageData();
     
-    // Jeśli już wylosowano dziś, pokaż istniejące
     if (data.challenge) {
         challengeText.textContent = data.challenge;
         challengeDisplay.classList.remove('hidden');
         completeBtn.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
         
-        // Jeśli już ukończone, pokaż to
         const isCompleted = data.completed.some(item => item.challenge === data.challenge);
         if (isCompleted) {
             challengeText.classList.add('completed');
@@ -132,7 +124,6 @@ function generateChallenge() {
         return;
     }
     
-    // Wylosuj nowe
     const random = challenges[Math.floor(Math.random() * challenges.length)];
     
     challengeDisplay.classList.remove('hidden');
@@ -210,7 +201,6 @@ function shareChallenge() {
             text: text
         }).catch(err => console.log('Błąd podczas udostępniania:', err));
     } else {
-        // Fallback - kopiuj do schowka
         navigator.clipboard.writeText(text)
             .then(() => showMessage('Wyzwanie skopiowane do schowka! 📋'))
             .catch(() => showMessage('Nie można skopiować do schowka'));
@@ -233,7 +223,6 @@ function clearHistory() {
         updateStats();
         toggleHistory();
         
-        // Zaktualizuj wyzwanie jeśli jest
         const data = getStorageData();
         if (data.challenge && challengeText.textContent === data.challenge) {
             challengeText.classList.remove('completed');
@@ -243,9 +232,7 @@ function clearHistory() {
     }
 }
 
-// ===== INICJALIZACJA =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Przywróć stan z poprzedniego sesji
     const data = getStorageData();
     
     if (data.challenge) {
@@ -267,15 +254,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateStats();
     
-    // Event listenery
     generateBtn.addEventListener('click', generateChallenge);
     completeBtn.addEventListener('click', completeChallenge);
     shareBtn.addEventListener('click', shareChallenge);
     rerollBtn.addEventListener('click', rerollChallenge);
     historyBtn.addEventListener('click', toggleHistory);
     clearHistoryBtn.addEventListener('click', clearHistory);
-    
-    // Obsługa klawisza Enter
+
     document.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !challengeDisplay.classList.contains('hidden')) {
             if (e.target.tagName !== 'BUTTON') {
